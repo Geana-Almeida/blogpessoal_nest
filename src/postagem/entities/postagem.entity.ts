@@ -1,6 +1,7 @@
 import { Transform, TransformFnParams } from "class-transformer";
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Tema } from "../../tema/entities/tema.entity";
 
 
 @Entity({name: "tb_postagens"})//ORM pega objeto e transforma em linguagem de banco de dados, e vice versa
@@ -22,5 +23,9 @@ export class Postagem{// Criando primaria autoincremental
     @UpdateDateColumn()
     data: Date;
 
-
+    //Muitos para um, ou seja, Muitas postagens, possuem um tema CUIDADO CONFUNDIR ManyToOne com ManyToMany
+    @ManyToOne(() => Tema, (tema) => tema.postagem, {
+        onDelete: "CASCADE"
+    })
+    tema: Tema;
 }
