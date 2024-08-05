@@ -10,13 +10,13 @@ import { Usuario } from './usuario/entities/usuario.entity';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { ProdService } from './data/services/prod.service';
+import { DevService } from './data/services/dev.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
-      useClass: ProdService,
-      imports: [ConfigModule],
+      useClass: ProdService, // ou DevService para trabalhar localmente agora se quiser trabalhar sem ser no local é ProdService
     }),
     PostagemModule,
     TemaModule,
